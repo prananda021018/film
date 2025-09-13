@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tonton Video</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      background: rgba(0,0,0,0.8);
+      padding: 30px;
+      border-radius: 15px;
+    }
+    button {
+      padding: 12px 30px;
+      border: none;
+      border-radius: 30px;
+      font-size: 16px;
+      font-weight: bold;
+      background: orange;
+      color: #000;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    video {
+      width: 100%;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="app"></div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const page = params.get("page") || "home";
+
+    const app = document.getElementById("app");
+
+    if (page === "home") {
+      // Halaman utama
+      app.innerHTML = `
+        <h1>Video Siap Diputar</h1>
+        <p id="countdown">Tombol aktif dalam 5 detik...</p>
+        <button id="btn" disabled>Tonton Video</button>
+      `;
+
+      let time = 5;
+      const countdown = document.getElementById("countdown");
+      const btn = document.getElementById("btn");
+
+      const interval = setInterval(() => {
+        time--;
+        countdown.textContent = "Tombol aktif dalam " + time + " detik...";
+        if (time <= 0) {
+          clearInterval(interval);
+          countdown.textContent = "Tombol sudah aktif!";
+          btn.disabled = false;
+        }
+      }, 1000);
+
+      btn.onclick = () => {
+        window.open("https://domicilesweetheart.com/rj6seexk?key=ef12f329a6245cf719124d7a8f442e7f", "_blank"); // direct link Anda
+        window.location.href = "?page=player";
+      };
+    }
+
+    if (page === "player") {
+      // Halaman player
+      app.innerHTML = `
+        <h1>Video Sedang Diputar</h1>
+        <video controls autoplay>
+          <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+          Browser Anda tidak mendukung video.
+        </video>
+        <br><br>
+        <a href="?page=home"><button>Kembali</button></a>
+      `;
+    }
+  </script>
+</body>
+</html>
